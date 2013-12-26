@@ -1,0 +1,11 @@
+{
+  "name": "verstat-cli",
+  "version": "1.0.0",
+  "bin": {
+  	"verstat": "bin/verstat"
+  },
+  "dependencies": {
+    "commander": "~2.1.0",
+    "coffee-script": "~1.6.3"
+  }
+}

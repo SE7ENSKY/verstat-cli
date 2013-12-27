@@ -68,4 +68,11 @@ program
 		cmd "npm", [ "uninstall", "--save", "verstat-cli", "verstat" ], ->
 			cmd "npm", [ "install", "--save", "verstat-cli", "verstat" ]
 
+try
+	Verstat = require process.cwd() + '/node_modules/verstat'
+	verstat = new Verstat program.env
+	verstat.extendProgram program
+catch e
+ 	console.error "Could not find local verstat!"
+
 program.parse process.argv

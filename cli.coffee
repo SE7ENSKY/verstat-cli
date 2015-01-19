@@ -9,6 +9,7 @@ program = require 'commander'
 program
 	.version("verstat-cli v" + JSON.parse(fs.readFileSync __dirname + "/package.json", "utf8").version)
 	.option("-e, --env <env>", "specify envinronment (dev|static) [dev]", "dev")
+	.option("--exec-after-generate <COMMAND>", "execute COMMAND after full generation")
 
 program
 	.command("init")
@@ -72,6 +73,11 @@ try
 	Verstat = require process.cwd() + '/node_modules/verstat'
 	verstat = new Verstat program.env
 	verstat.extendProgram program
+	verstat.on "afterEachGenerate", ->
+		if program.execAfterGenerate
+			console.log "START", program.execAfterGenerate
+			cmd "sh", ["-c", program.execAfterGenerate], ->
+				console.log "FINISH", program.execAfterGenerate
 catch e
  	console.error "Could not find local verstat!"
 
